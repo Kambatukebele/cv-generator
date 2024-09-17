@@ -26,134 +26,101 @@ export default function Register() {
     return (
         <>
             <Head title="Register" />
-            <form className='bg-orange-500 w-full h-screen px-8 flex justify-center items-center'>
-                <div className='hidden'>
-                    <div>
-                        <img src={ladder} alt="image-ladder" />
-                    </div>
-                    <div className=''>
-                        <img src={ladder_hat} alt="image-ladder-hat" />
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <h1 className='text-2xl font-semibold text-white text-center'>Get more things done with Loggin platform.</h1>
-                        <p className='text-base font-normal text-white text-wrap text-center'>
-                            Access to the most powerfull tool in the entire design and web industry.
-                        </p>
-                    </div>
-                    <div className='flex flex-col justify-center gap-1'>
-                        <label htmlFor="name">Name</label>
-                        <input type="text" name='' placeholder='Enter your name here' />
-                    </div>
-                    <div className='flex flex-col justify-center gap-1'>
-                        <label htmlFor="name">Name</label>
-                        <input type="text" name='' placeholder='Enter your name here' />
-                    </div>
-                    <div className='flex flex-col justify-center gap-1'>
-                        <label htmlFor="email">Email</label>
-                        <input type="email" name='' placeholder='Enter your email here' />
-                    </div>
-                    <div className='flex flex-col justify-center gap-1'>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" name='' placeholder='Enter your password here' />
-                    </div>
-                    <div className='flex flex-col justify-center gap-1'>
-                        <label htmlFor="confirm password">Confirm password</label>
-                        <input type="password" name='' placeholder='Enter your confirm password here' />
-                    </div>
-                    <div className='flex flex-col justify-center gap-1'>
+            <section className='bg-gray-50 w-full h-screen relative'>
+                <form onSubmit={submit} className='container h-fit mx-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:flex lg:justify-center lg:items-center'>
+                    <div className='hidden lg:!block'>
                         <div>
-                            <a href="#">Already registered</a>
+                            <img src={ladder} alt="image-ladder" />
                         </div>
-                        <div>
-                            <button type='submit'>Register</button>
+                        <div className='lg:absolute lg:top-[-30px] lg:right-0 xl:right-32'>
+                            <img className='w-20 rotate-90' src={ladder_hat} alt="image-ladder-hat" />
                         </div>
                     </div>
-                </div>
-            </form>
-            {/* <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
-
-                    <TextInput
-                        id="name"
-                        name="name"
-                        value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.name} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Already registered?
-                    </Link>
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Register
-                    </PrimaryButton>
-                </div>
-            </form> */}
+                    <div className='p-4 bg-orange-400 min-w-[190px] rounded-3xl mx-4 sm:min-w-0 sm:w-[450px] sm:mx-auto lg:px-8'>
+                        <div className='flex flex-col gap-3 mb-10'>
+                            <h1 className='text-2xl font-extrabold text-white text-center lg:text-3xl'>Get more things done with Loggin platform.</h1>
+                            <p className='text-base font-normal text-white text-wrap text-center'>
+                                Access to the most powerfull tool in the entire design and web industry.
+                            </p>
+                        </div>
+                        <div className='flex flex-col justify-center gap-1 mb-2'>
+                            <label className='text-white text-sm' htmlFor="name">Name</label>
+                            <input 
+                                type="text"
+                                id="name" 
+                                name="name"
+                                value={data.name}
+                                autoComplete="name"
+                                isFocused={true}
+                                onChange={(e) => setData('name', e.target.value)}
+                                required 
+                                className='rounded-lg py-3 border-none text-sm font-thin' placeholder='Enter your name here' 
+                            />
+                            <InputError message={errors.name} className="mt-2" />
+                        </div>
+                        <div className='flex flex-col justify-center gap-1 mb-2'>
+                            <label className='text-white text-sm' htmlFor="email">Email</label>
+                            <input 
+                                id="email"
+                                type="email"
+                                name="email"
+                                value={data.email}
+                                autoComplete="username"
+                                onChange={(e) => setData('email', e.target.value)}
+                                required 
+                                className='rounded-lg py-3 border-none text-sm font-thin'
+                                placeholder='Enter your email here'
+                            />
+                            <InputError message={errors.email} className="mt-2" />
+                        </div>
+                        <div className='flex flex-col justify-center gap-1 mb-2'>
+                            <label className='text-white text-sm' htmlFor="password">Password</label>
+                            <input 
+                                id="password"
+                                type="password"
+                                name="password"
+                                value={data.password}
+                                autoComplete="new-password"
+                                onChange={(e) => setData('password', e.target.value)}
+                                required 
+                                className='rounded-lg py-3 border-none text-sm font-thin' 
+                                placeholder='Enter your password here'
+                            />
+                            <InputError message={errors.password} className="mt-2" />
+                        </div>
+                        <div className='flex flex-col justify-center gap-1 mb-2'>
+                            <label className='text-white text-sm' htmlFor="confirm password">Confirm password</label>
+                            <input
+                                id="password_confirmation"
+                                type="password"
+                                name="password_confirmation"
+                                value={data.password_confirmation}
+                                autoComplete="new-password"
+                                onChange={(e) => setData('password_confirmation', e.target.value)}
+                                required 
+                                className='rounded-lg py-3 border-none text-sm font-thin'
+                                placeholder='Enter your confirm password here'
+                            />
+                            <InputError message={errors.password_confirmation} className="mt-2" />
+                        </div>
+                        <div className='flex justify-end items-center gap-2 my-10'>
+                            <div>
+                                <Link
+                                    href={route('login')}
+                                    className="underline text-sm text-white"
+                                >
+                                    Already registered?
+                                </Link>
+                            </div>
+                            <div>
+                                <PrimaryButton className="ms-4 bg-white text-orange-400 py-3" disabled={processing}>
+                                    Register
+                                </PrimaryButton>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
         </>
     );
 }
