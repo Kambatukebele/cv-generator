@@ -13,7 +13,8 @@ class ResumeController extends Controller
      */
     public function index()
     {
-        //
+        $resumes = auth()->user()->resumes;
+        return inertia('Resumes/Index', ['resumes' => $resumes]);
     }
 
     /**
@@ -21,15 +22,24 @@ class ResumeController extends Controller
      */
     public function create()
     {
-        //
+        return inertia("Resumes/Create", []);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreResumeRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'sections' => 'required|json',
+        ]);
+
+        $resume = auth()->user()->resumes()->create([
+            'title' => $request->input('title', 'Untitled Resume'),
+            'sections' => $request->input('sections'),
+        ]);
+
+        return redirect()->route('resumes.index');
     }
 
     /**
@@ -51,9 +61,16 @@ class ResumeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateResumeRequest $request, Resume $resume)
+    public function update(Request $request, Resume $resume)
     {
-        //
+         $this->authorize('update', $resume);
+
+        $resume->update([
+            'title' => $request->input('title'),
+            'sections' => $request->input('sections'),
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -61,6 +78,8 @@ class ResumeController extends Controller
      */
     public function destroy(Resume $resume)
     {
-        //
+        $this->authorize('delete', $resume);
+        $resume->delete();
+        return redirect()->route('resumes.index');
     }
 }
