@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('contact_infos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('resume_id');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('linkedin')->nullable();

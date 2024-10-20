@@ -19,7 +19,7 @@ class ContactInfoController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('contactInfo/Create');
     }
 
     /**

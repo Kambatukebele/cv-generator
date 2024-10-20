@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactInfoController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -21,6 +22,7 @@ Route::get('/dashboard', function () {
 
 // Resumes
 Route::resource('resumes', ResumeController::class)->middleware(['auth', 'verified']);
+Route::resource('contact_info', ContactInfoController::class)->middleware(['auth', 'verified']);
 
 
 Route::middleware('auth')->group(function () {

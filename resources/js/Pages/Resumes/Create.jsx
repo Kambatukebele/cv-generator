@@ -3,8 +3,16 @@ import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { Head, Link, useForm } from "@inertiajs/react";
 import dummyImage from "../../../../public/images/user_placeholder.jpg";
+import { Button, Textarea } from "@headlessui/react";
 
 const Create = () => {
+    const { data, post, setData, errors } = useForm({});
+    console.log(data);
+
+    const handleContactInfoForm = (e) => {
+        e.preventDefault();
+        post(route("resumes.store"));
+    };
     return (
         <main className="">
             {/* Heading */}
@@ -19,7 +27,7 @@ const Create = () => {
                             We suggest including an email and phone number.
                         </p>
                     </div>
-                    <div className="">
+                    <form onSubmit={handleContactInfoForm} className="">
                         <div className="p-4 bg-gray-100 shadow-xl min-w-[190px] rounded-3xl mx-4 lg:w-[768px] lg:mx-auto">
                             <div className="flex flex-col gap-3 mb-10">
                                 <h1 className="text-xl font-extrabold text-gray-900 text-start lg:text-3xl">
@@ -31,75 +39,140 @@ const Create = () => {
                                     number.
                                 </p>
                             </div>
-                            {/* Image */}
-                            <div class="sm:w-1/2">
-                                <label
-                                    className="text-gray-700 text-sm"
-                                    htmlFor="phone"
-                                >
-                                    <img
-                                        className="w-20 h-20 rounded-full mb-5"
-                                        src={dummyImage}
-                                        alt="user dummy image"
-                                    />
-                                    <input
-                                        type="file"
-                                        id="phone"
-                                        name="phone"
-                                        value=""
-                                        autoComplete="phone"
-                                        isFocused={true}
-                                        required
-                                        className="hidden rounded-lg py-3 w-full border-none text-sm font-light"
-                                    />
-                                    <span className="my-5 hover:underline">
-                                        Upload image
-                                    </span>
-                                </label>
 
-                                <InputError message="" className="mt-2" />
+                            <div className="w-full">
+                                <div className="w-full mb-5">
+                                    <label
+                                        className="text-gray-700 text-sm"
+                                        htmlFor="first_name"
+                                    >
+                                        Title
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="title"
+                                        value={data.title}
+                                        onChange={(e) =>
+                                            setData("title", e.target.value)
+                                        }
+                                        isFocused={true}
+                                        className="rounded-lg py-3 border-none w-full text-sm font-light"
+                                        placeholder="Ex: John"
+                                    />
+                                    <InputError
+                                        message={errors.title}
+                                        className="mt-2"
+                                    />
+                                </div>
+                                <div className="w-full">
+                                    <label
+                                        className="text-gray-700 text-sm"
+                                        htmlFor="surname"
+                                    >
+                                        Summary
+                                    </label>
+                                    <Textarea
+                                        name="summary"
+                                        value={data.summary}
+                                        onChange={(e) =>
+                                            setData("summary", e.target.value)
+                                        }
+                                        className="rounded-lg py-3 w-full border-none text-sm font-light"
+                                        placeholder="Ex: Doe"
+                                    ></Textarea>
+                                    <InputError
+                                        message={errors.summary}
+                                        className="mt-2"
+                                    />
+                                </div>
                             </div>
-                            <br />
+                            <Button
+                                type="submit"
+                                className={`w-[200px] border py-2 rounded-xl bg-blue-800 text-white my-5`}
+                            >
+                                Save and continue
+                            </Button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            {/* <section className="w-full h-fit">
+                <div className="container mx-auto">
+                    <div className="flex flex-col gap-3 my-10 py-5 lg:w-[700px] lg:mx-auto">
+                        <h1 className="text-2xl mx-4 text-start font-extrabold text-gray-900 lg:text-center lg:text-5xl">
+                            Fill out all your informations and choose your
+                            template at the end
+                        </h1>
+                        <p className="text-base font-light text-gray-600 text-wrap text-start mx-4 lg:text-center">
+                            We suggest including an email and phone number.
+                        </p>
+                    </div>
+                    <form onSubmit={handleContactInfoForm} className="">
+                        <div className="p-4 bg-gray-100 shadow-xl min-w-[190px] rounded-3xl mx-4 lg:w-[768px] lg:mx-auto">
+                            <div className="flex flex-col gap-3 mb-10">
+                                <h1 className="text-xl font-extrabold text-gray-900 text-start lg:text-3xl">
+                                    What's the best way for employers to contact
+                                    you?
+                                </h1>
+                                <p className="text-base font-light text-gray-600 text-wrap text-start">
+                                    We suggest including an email and phone
+                                    number.
+                                </p>
+                            </div>
+
                             <div className="flex flex-col justify-center gap-1 mb-2 sm:flex-row sm:gap-2 md:gap-4">
                                 <div className="sm:w-1/2">
                                     <label
                                         className="text-gray-700 text-sm"
-                                        htmlFor="name"
+                                        htmlFor="first_name"
                                     >
                                         First Name
                                     </label>
                                     <input
                                         type="text"
                                         id="firstname"
-                                        name="firstname"
-                                        value=""
+                                        name="first_name"
+                                        value={data.first_name}
+                                        onChange={(e) =>
+                                            setData(
+                                                "first_name",
+                                                e.target.value
+                                            )
+                                        }
                                         autoComplete="firstname"
                                         isFocused={true}
-                                        required
                                         className="rounded-lg py-3 border-none w-full text-sm font-light"
                                         placeholder="Ex: John"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError
+                                        message={errors.first_name}
+                                        className="mt-2"
+                                    />
                                 </div>
                                 <div className="sm:w-1/2">
                                     <label
                                         className="text-gray-700 text-sm"
                                         htmlFor="surname"
                                     >
-                                        SurName
+                                        Last Name
                                     </label>
                                     <input
                                         type="text"
                                         id="surname"
-                                        name="surname"
-                                        value=""
+                                        name="last_name"
+                                        value={data.last_name}
+                                        onChange={(e) =>
+                                            setData("last_name", e.target.value)
+                                        }
                                         autoComplete="surname"
                                         isFocused={true}
-                                        required
                                         className="rounded-lg py-3 w-full border-none text-sm font-light"
                                         placeholder="Ex: Doe"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError
+                                        message={errors.last_name}
+                                        className="mt-2"
+                                    />
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center gap-1 mb-2 sm:flex-row sm:gap-2 md:gap-4">
@@ -114,14 +187,19 @@ const Create = () => {
                                         type="email"
                                         id="email"
                                         name="email"
-                                        value=""
+                                        value={data.email}
+                                        onChange={(e) =>
+                                            setData("email", e.target.value)
+                                        }
                                         autoComplete="email"
                                         isFocused={true}
-                                        required
                                         className="rounded-lg py-3 border-none w-full text-sm font-light"
                                         placeholder="Ex: example@example.com"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError
+                                        message={errors.email}
+                                        className="mt-2"
+                                    />
                                 </div>
                                 <div className="sm:w-1/2">
                                     <label
@@ -134,14 +212,19 @@ const Create = () => {
                                         type="number"
                                         id="phone"
                                         name="phone"
-                                        value=""
+                                        value={data.phone}
+                                        onChange={(e) =>
+                                            setData("phone", e.target.value)
+                                        }
                                         autoComplete="phone"
                                         isFocused={true}
-                                        required
                                         className="rounded-lg py-3 w-full border-none text-sm font-light"
                                         placeholder="Ex: +420 999 888 777"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError
+                                        message={errors.phone}
+                                        className="mt-2"
+                                    />
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center gap-1 mb-2 sm:flex-row sm:gap-2 md:gap-4">
@@ -150,20 +233,25 @@ const Create = () => {
                                         className="text-gray-700 text-sm"
                                         htmlFor="name"
                                     >
-                                        City
+                                        Linkedin
                                     </label>
                                     <input
                                         type="city"
                                         id="city"
-                                        name="city"
-                                        value=""
-                                        autoComplete="city"
+                                        name="linkedin"
+                                        value={data.linkedin}
+                                        onChange={(e) =>
+                                            setData("linkedin", e.target.value)
+                                        }
+                                        autoComplete="linkedin"
                                         isFocused={true}
-                                        required
                                         className="rounded-lg py-3 pl-3 border-none w-full text-sm font-light"
                                         placeholder="Ex: Kinshasa"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError
+                                        message={errors.linkedin}
+                                        className="mt-2"
+                                    />
                                 </div>
                                 <div className="sm:w-1/2 sm:flex sm:justify-center sm:items-center sm:gap-2 md:gap-4">
                                     <div className="sm:w-1/2">
@@ -171,54 +259,97 @@ const Create = () => {
                                             className="text-gray-700 text-sm"
                                             htmlFor="code_postal"
                                         >
-                                            Code postal
+                                            Twitter
                                         </label>
                                         <input
-                                            type="number"
+                                            type="text"
                                             id="code_postal"
-                                            name="code_postal"
-                                            value=""
-                                            autoComplete="code postal"
+                                            name="twitter"
+                                            value={data.twitter}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "twitter",
+                                                    e.target.value
+                                                )
+                                            }
+                                            autoComplete="twitter"
                                             isFocused={true}
-                                            required
                                             className="rounded-lg py-3 w-full border-none text-sm font-light"
                                             placeholder="Code postal"
                                         />
                                         <InputError
-                                            message=""
+                                            message={errors.twitter}
                                             className="mt-2"
                                         />
                                     </div>
                                     <div className="sm:w-1/2">
                                         <label
                                             className="text-gray-700 text-sm"
-                                            htmlFor="country"
+                                            htmlFor="github"
                                         >
-                                            Country
+                                            Github
                                         </label>
                                         <input
-                                            type="number"
+                                            type="text"
                                             id="country"
-                                            name="country"
-                                            value=""
-                                            autoComplete="country"
+                                            name="github"
+                                            value={data.github}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "github",
+                                                    e.target.value
+                                                )
+                                            }
+                                            autoComplete="github"
                                             isFocused={true}
-                                            required
                                             className="rounded-lg py-3 w-full border-none text-sm font-light"
                                             placeholder="Congo"
                                         />
                                         <InputError
-                                            message=""
+                                            message={errors.github}
                                             className="mt-2"
                                         />
                                     </div>
                                 </div>
                             </div>
+                            <div className="flex flex-col justify-start gap-1 mb-2 sm:flex-row sm:gap-2 md:gap-4">
+                                <div className="w-full">
+                                    <label
+                                        className="text-gray-700 text-sm"
+                                        htmlFor="name"
+                                    >
+                                        Website
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="city"
+                                        name="website"
+                                        value={data.website}
+                                        onChange={(e) =>
+                                            setData("website", e.target.value)
+                                        }
+                                        autoComplete="website"
+                                        isFocused={true}
+                                        className="rounded-lg py-3 pl-3 border-none w-full text-sm font-light"
+                                        placeholder="Ex: Kinshasa"
+                                    />
+                                    <InputError
+                                        message={errors.website}
+                                        className="mt-2"
+                                    />
+                                </div>
+                            </div>
+                            <Button
+                                type="submit"
+                                className={`w-[200px] border py-2 rounded-xl bg-blue-800 text-white my-5`}
+                            >
+                                Save and continue
+                            </Button>
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </section>
-            {/* Work history */}
+            </section> */}
+            {/* Work history
             <section className="w-full h-fit">
                 <div className="container mx-auto">
                     <div className="flex flex-col gap-3 my-10 py-5 lg:w-[700px] lg:mx-auto">
@@ -248,11 +379,11 @@ const Create = () => {
                                         value=""
                                         autoComplete="Job title"
                                         isFocused={true}
-                                        required
+
                                         className="rounded-lg py-3 border-none w-full text-sm font-light"
                                         placeholder="Ex: Web developer"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError message={errors.} className="mt-2" />
                                 </div>
                                 <div className="sm:w-1/2">
                                     <label
@@ -268,11 +399,11 @@ const Create = () => {
                                         value=""
                                         autoComplete="employer"
                                         isFocused={true}
-                                        required
+
                                         className="rounded-lg py-3 w-full border-none text-sm font-light"
                                         placeholder="Ex: Google"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError message={errors.} className="mt-2" />
                                 </div>
                             </div>
                             <div className="flex flex-col justify-start gap-1 mb-2 sm:flex-row sm:gap-2 md:gap-4">
@@ -290,7 +421,7 @@ const Create = () => {
                                         value=""
                                         autoComplete="location"
                                         isFocused={true}
-                                        required
+
                                         className="rounded-lg py-3 border-none w-full text-sm font-light"
                                         placeholder="Ex: example@example.com"
                                     />
@@ -302,7 +433,7 @@ const Create = () => {
                                         />
                                         <span className="ml-2">Remote</span>
                                     </div>
-                                    <InputError message="" className="mt-2" />
+                                    <InputError message={errors.} className="mt-2" />
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center gap-1 mb-2 sm:flex-row sm:gap-2 md:gap-4">
@@ -320,11 +451,11 @@ const Create = () => {
                                         value=""
                                         autoComplete="start date"
                                         isFocused={true}
-                                        required
+
                                         className="rounded-lg py-3 pl-3 border-none w-full text-sm font-light"
                                         placeholder="Ex: Kinshasa"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError message={errors.} className="mt-2" />
                                 </div>
                                 <div className="sm:w-1/2">
                                     <label
@@ -340,7 +471,7 @@ const Create = () => {
                                         value=""
                                         autoComplete="start date"
                                         isFocused={true}
-                                        required
+
                                         className="rounded-lg py-3 pl-3 border-none w-full text-sm font-light"
                                         placeholder="Ex: Kinshasa"
                                     />
@@ -350,7 +481,7 @@ const Create = () => {
                                             I work Currently here
                                         </span>
                                     </div>
-                                    <InputError message="" className="mt-2" />
+                                    <InputError message={errors.} className="mt-2" />
                                 </div>
                             </div>
                         </div>
@@ -361,8 +492,8 @@ const Create = () => {
                         </div>
                     </div>
                 </div>
-            </section>
-            {/* education */}
+            </section> */}
+            {/* education
             <section className="w-full h-fit">
                 <div className="container mx-auto">
                     <div className="flex flex-col gap-3 my-10 py-5 lg:w-[700px] lg:mx-auto">
@@ -392,11 +523,11 @@ const Create = () => {
                                         value=""
                                         autoComplete="school_name"
                                         isFocused={true}
-                                        required
+
                                         className="rounded-lg py-3 border-none w-full text-sm font-light"
                                         placeholder="Ex: Havard"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError message={errors.} className="mt-2" />
                                 </div>
                                 <div className="sm:w-1/2">
                                     <label
@@ -412,11 +543,11 @@ const Create = () => {
                                         value=""
                                         autoComplete="school_location"
                                         isFocused={true}
-                                        required
+
                                         className="rounded-lg py-3 w-full border-none text-sm font-light"
                                         placeholder="Ex: Prague"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError message={errors.} className="mt-2" />
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center gap-1 mb-2 sm:flex-row sm:gap-2 md:gap-4">
@@ -434,11 +565,11 @@ const Create = () => {
                                         value=""
                                         autoComplete="degree"
                                         isFocused={true}
-                                        required
+
                                         className="rounded-lg py-3 border-none w-full text-sm font-light"
                                         placeholder="Ex: example@example.com"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError message={errors.} className="mt-2" />
                                 </div>
                                 <div className="sm:w-1/2">
                                     <label
@@ -454,11 +585,11 @@ const Create = () => {
                                         value=""
                                         autoComplete="field of study"
                                         isFocused={true}
-                                        required
+
                                         className="rounded-lg py-3 w-full border-none text-sm font-light"
                                         placeholder="Ex: +420 999 888 777"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError message={errors.} className="mt-2" />
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center gap-1 mb-2 sm:flex-row sm:gap-2 md:gap-4">
@@ -476,11 +607,11 @@ const Create = () => {
                                         value=""
                                         autoComplete="graduation date"
                                         isFocused={true}
-                                        required
+
                                         className="rounded-lg py-3 pl-3 border-none w-full text-sm font-light"
                                         placeholder="Ex: Kinshasa"
                                     />
-                                    <InputError message="" className="mt-2" />
+                                    <InputError message={errors.} className="mt-2" />
                                 </div>
                                 <div className="sm:w-1/2 sm:flex sm:justify-center sm:items-center sm:gap-2 md:gap-4">
                                     <div className="sm:w-1/2">
@@ -497,7 +628,7 @@ const Create = () => {
                                             value=""
                                             autoComplete="code postal"
                                             isFocused={true}
-                                            required
+
                                             className="rounded-lg py-3 w-full border-none text-sm font-light"
                                             placeholder="Code postal"
                                         />
@@ -520,7 +651,7 @@ const Create = () => {
                                             value=""
                                             autoComplete="country"
                                             isFocused={true}
-                                            required
+
                                             className="rounded-lg py-3 w-full border-none text-sm font-light"
                                             placeholder="Congo"
                                         />
@@ -534,7 +665,7 @@ const Create = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
         </main>
     );
 };
