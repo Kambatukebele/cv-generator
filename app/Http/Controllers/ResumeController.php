@@ -28,7 +28,7 @@ class ResumeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RequesStoreResume $request)
     {
         $request->validate([
             'sections' => 'required|json',
