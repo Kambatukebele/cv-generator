@@ -53,6 +53,7 @@ class ContactInfoController extends Controller
         $contactInfo->resume_id = $resume_id;
 
         $contactInfo->save();
+
         return redirect()->route('experience.create');
     }
 

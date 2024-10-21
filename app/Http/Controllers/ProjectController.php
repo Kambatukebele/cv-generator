@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -19,7 +20,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Project/Create');
     }
 
     /**
@@ -27,7 +28,26 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $resume_id = session('resume_id');
+         // Validate the incoming request
+        $validatedData = $request->validate([
+            'projects' => 'required|array',
+            'projects.*.title' => 'required|string|max:255',
+            'projects.*.description' => 'required|string',
+            'projects.*.url' => 'nullable|url|max:255',
+        ]);
+
+        // Loop through each project and create a record
+        foreach ($validatedData['projects'] as $project) {
+            Project::create([
+                 'resume_id' => $resume_id,
+                'title' => $project['title'],
+                'description' => $project['description'],
+                'url' => $project['url'] ?? null,
+            ]);
+        }
+
+        return redirect()->route('language.create');
     }
 
     /**

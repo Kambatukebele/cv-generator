@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Language;
 use Illuminate\Http\Request;
 
 class LanguageController extends Controller
@@ -19,7 +20,7 @@ class LanguageController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Language/Create');
     }
 
     /**
@@ -27,7 +28,23 @@ class LanguageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $resume_id = session('resume_id');
+         $validatedData = $request->validate([
+            'languages' => 'required|array',
+            'languages.*.language' => 'required|string|max:255',
+            'languages.*.proficiency' => 'required|string|max:255',
+        ]);
+
+        // Loop through each language and create a record
+        foreach ($validatedData['languages'] as $language) {
+            Language::create([
+                'resume_id' => $resume_id,
+                'language' => $language['language'],
+                'proficiency' => $language['proficiency'],
+            ]);
+        }
+        $request->session()->forget('resume_id');
+        return redirect()->route('register');
     }
 
     /**

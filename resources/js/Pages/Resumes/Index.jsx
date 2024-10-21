@@ -1,7 +1,9 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
 
-const Index = () => {
+const Index = ({ resumes }) => {
+    console.log(resumes);
+
     return (
         <>
             <h1 className="mb-10">List of your resumes</h1>

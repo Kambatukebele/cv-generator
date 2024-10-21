@@ -14,7 +14,8 @@ class ResumeController extends Controller
      */
     public function index()
     {
-        return inertia('Resumes/Index');
+        $resumes = Resume::with(['experiences', 'educations', 'skills', 'projects', 'languages', 'contact_info'])->get();
+        return inertia('Resumes/Index', ['resumes' => $resumes]);
     }
 
     /**
@@ -53,7 +54,18 @@ class ResumeController extends Controller
      */
     public function show(Resume $resume)
     {
-        //
+        // Fetch resume along with related data
+        // $resume = Resume::with([
+        //     'experiences',
+        //     'educations',
+        //     'skills',
+        //     'projects',
+        //     'languages'
+        // ])->findOrFail($resume);
+        // // Return the data to the Inertia view
+        // return inertia('Resume/Show', [
+        //     'resume' => $resume
+        // ]);
     }
 
     /**

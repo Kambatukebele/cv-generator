@@ -8,9 +8,9 @@ export default function Dashboard() {
     return (
         <AdminLayout>
             <Aside />
-            <div>
+            {/* <div>
                 <ResumesSection />
-            </div>
+            </div> */}
         </AdminLayout>
     );
 }

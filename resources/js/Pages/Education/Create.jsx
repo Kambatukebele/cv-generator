@@ -6,73 +6,61 @@ import { Button, Textarea } from "@headlessui/react";
 import { useState } from "react";
 
 const Create = () => {
-    const { data, post, setData, errors } = useForm({
-        experiences: [
+    const { data, setData, post, processing, errors } = useForm({
+        educations: [
             {
-                job_title: "",
-                company: "",
+                degree: "",
+                institution: "",
                 start_date: "",
                 end_date: "",
                 location: "",
-                description: "",
             },
         ],
     });
-    // const [experiences, setExperiences] = useState([
-    //     {
-    //         job_title: "",
-    //         company: "",
-    //         description: "",
-    //         start_date: "",
-    //         end_date: "",
-    //         location: "",
-    //     },
-    // ]);
 
-    const addExperience = () => {
-        setData("experiences", [
-            ...data.experiences,
+    // Function to add a new education input block
+    const addEducation = () => {
+        setData("educations", [
+            ...data.educations,
             {
-                job_title: "",
-                company: "",
+                degree: "",
+                institution: "",
                 start_date: "",
                 end_date: "",
                 location: "",
-                description: "",
             },
         ]);
     };
 
-    //Function to handle form change
+    // Function to handle changes in the input fields
     const handleChange = (index, event) => {
         const { name, value } = event.target;
-        const updatedExperiences = [...data.experiences];
-        updatedExperiences[index][name] = value;
-        setData("experiences", updatedExperiences);
+        const updatedEducations = [...data.educations];
+        updatedEducations[index][name] = value;
+        setData("educations", updatedEducations);
     };
-    console.log(data.experiences);
 
     const handleContactInfoForm = (e) => {
         e.preventDefault();
-        post(route("experience.store"));
+        post(route("education.store"));
     };
     return (
         <section className="w-full h-fit">
             <div className="container mx-auto">
                 <div className="flex flex-col gap-3 my-10 py-5 lg:w-[700px] lg:mx-auto">
                     <h1 className="text-2xl mx-4 text-start font-extrabold text-gray-900 lg:text-center lg:text-5xl">
-                        Experience
+                        Education
                     </h1>
                 </div>
                 <button
                     type="button"
-                    onClick={addExperience}
+                    onClick={addEducation}
                     className="bg-blue-800 py-2 px-6 rounded-xl text-white"
                 >
-                    Add Experience
+                    Add Education
                 </button>
                 <form onSubmit={handleContactInfoForm} className="">
-                    {data.experiences.map((experience, index) => {
+                    {data.educations.map((education, index) => {
                         return (
                             <div
                                 key={index}
@@ -84,13 +72,13 @@ const Create = () => {
                                             className="text-gray-700 text-sm"
                                             htmlFor="first_name"
                                         >
-                                            Job title
+                                            Degree
                                         </label>
                                         <input
                                             type="text"
                                             id="firstname"
-                                            name="job_title"
-                                            value={experience.job_title}
+                                            name="degree"
+                                            value={education.degree}
                                             onChange={(e) =>
                                                 handleChange(index, e)
                                             }
@@ -100,7 +88,7 @@ const Create = () => {
                                             placeholder="Ex: John"
                                         />
                                         <InputError
-                                            message={errors.job_title}
+                                            message={errors.degree}
                                             className="mt-2"
                                         />
                                     </div>
@@ -109,13 +97,13 @@ const Create = () => {
                                             className="text-gray-700 text-sm"
                                             htmlFor="surname"
                                         >
-                                            Company
+                                            Institution
                                         </label>
                                         <input
                                             type="text"
                                             id="surname"
-                                            name="company"
-                                            value={experience.company}
+                                            name="institution"
+                                            value={education.institution}
                                             onChange={(e) =>
                                                 handleChange(index, e)
                                             }
@@ -125,12 +113,12 @@ const Create = () => {
                                             placeholder="Ex: Doe"
                                         />
                                         <InputError
-                                            message={errors.company}
+                                            message={errors.institution}
                                             className="mt-2"
                                         />
                                     </div>
                                 </div>
-                                <div className="w-full">
+                                {/* <div className="w-full">
                                     <label
                                         className="text-gray-700 text-sm"
                                         htmlFor="name"
@@ -140,7 +128,7 @@ const Create = () => {
                                     <textarea
                                         name="description"
                                         rows="5"
-                                        value={experience.description}
+                                        value={education.description}
                                         className="rounded-lg py-3 w-full border-none text-sm font-light"
                                         onChange={(e) => handleChange(index, e)}
                                     ></textarea>
@@ -149,7 +137,7 @@ const Create = () => {
                                         message={errors.description}
                                         className="mt-2"
                                     />
-                                </div>
+                                </div> */}
                                 <div className="flex flex-col justify-center gap-1 mb-2 sm:flex-row sm:gap-2 md:gap-4">
                                     <div className="w-full">
                                         <label
@@ -162,7 +150,7 @@ const Create = () => {
                                             type="date"
                                             id="phone"
                                             name="start_date"
-                                            value={experience.start_date}
+                                            value={education.start_date}
                                             onChange={(e) =>
                                                 handleChange(index, e)
                                             }
@@ -187,7 +175,7 @@ const Create = () => {
                                             type="date"
                                             id="city"
                                             name="end_date"
-                                            value={experience.end_date}
+                                            value={education.end_date}
                                             onChange={(e) =>
                                                 handleChange(index, e)
                                             }
@@ -213,7 +201,7 @@ const Create = () => {
                                                 type="text"
                                                 id="code_postal"
                                                 name="location"
-                                                value={experience.location}
+                                                value={education.location}
                                                 onChange={(e) =>
                                                     handleChange(index, e)
                                                 }

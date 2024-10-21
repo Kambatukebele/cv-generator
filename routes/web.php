@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\ContactInfoController;
+use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\LanguageController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\TemplateController;
 
 Route::get('/', function () {
@@ -32,6 +36,12 @@ Route::resource('/build_cv/app/templates', TemplateController::class)->only([
 Route::resource('/build_cv/app/templates/resumes', ResumeController::class)->only([
     'create', 'store'
 ]);
+// Protected routes for viewing resumes
+Route::middleware(['auth'])->group(function () {
+    Route::resource('dashboard/resumes', ResumeController::class)->only([
+        'index', 'show'
+    ]);
+});
 //COntact info
 Route::resource('/build_cv/app/templates/contact_info', ContactInfoController::class)->only([
     'create', 'store'
@@ -39,6 +49,26 @@ Route::resource('/build_cv/app/templates/contact_info', ContactInfoController::c
 
 // Employement
 Route::resource('/build_cv/app/templates/experience', ExperienceController::class)->only([
+    'create', 'store'
+]);
+
+//Education
+Route::resource('/build_cv/app/templates/education', EducationController::class)->only([
+    'create', 'store'
+]);
+
+//Skill
+Route::resource('/build_cv/app/templates/skill', SkillController::class)->only([
+    'create', 'store'
+]);
+
+//Project
+Route::resource('/build_cv/app/templates/project',ProjectController::class)->only([
+    'create', 'store'
+]);
+
+//Language
+Route::resource('/build_cv/app/templates/language', LanguageController::class)->only([
     'create', 'store'
 ]);
 

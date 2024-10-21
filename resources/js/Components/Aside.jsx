@@ -4,7 +4,10 @@ import React from "react";
 const Aside = () => {
     return (
         <div>
-            <Link href={route("resumes.create")}>Create a cv</Link>
+            <Link className="block" href={route("resumes.create")}>
+                Aside section
+            </Link>
+            <Link href={route("resumes.index")}>View your invoice</Link>
         </div>
     );
 };
