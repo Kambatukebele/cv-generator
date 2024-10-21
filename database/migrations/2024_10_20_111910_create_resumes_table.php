@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('summary')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('template_id')->nullable()->constrained('templates')->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -26,6 +27,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('resumes', function (Blueprint $table) {
+            // Drop foreign keys before dropping the table
+            $table->dropForeign(['user_id']);  // Dropping the foreign key on 'user_id'
+            $table->dropForeign(['template_id']); // Dropping the foreign key on 'template_id'
+        });
         Schema::dropIfExists('resumes');
     }
 };
