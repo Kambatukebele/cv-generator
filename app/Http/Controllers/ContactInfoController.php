@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactInfo;
 use Illuminate\Http\Request;
 
 class ContactInfoController extends Controller
@@ -19,7 +20,7 @@ class ContactInfoController extends Controller
      */
     public function create()
     {
-        return inertia('contactInfo/Create');
+        return inertia('ContactInfo/Create');
     }
 
     /**
@@ -27,7 +28,32 @@ class ContactInfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $resume_id = session('resume_id');
+
+        $request->validate([
+            'first_name'=> "required|string",
+            'last_name' => "required|string",
+            'email' => "required|email",
+            "phone" => "required|numeric",
+            "linkedin" => "nullable|url:https",
+            "twitter" => "nullable|url:https",
+            "github" => "nullable|url:https",
+            "website" => "nullable|url:https",
+        ]);
+
+        $contactInfo = new ContactInfo;
+        $contactInfo->first_name = $request->first_name;
+        $contactInfo->last_name = $request->last_name;
+        $contactInfo->email = $request->email;
+        $contactInfo->phone = $request->phone;
+        $contactInfo->linkedin = $request->linkedin;
+        $contactInfo->twitter = $request->twitter;
+        $contactInfo->github = $request->github;
+        $contactInfo->website = $request->website;
+        $contactInfo->resume_id = $resume_id;
+
+        $contactInfo->save();
+        return redirect()->route('experience.create');
     }
 
     /**

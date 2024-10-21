@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Template;
 use Illuminate\Http\Request;
 
-class ExperienceController extends Controller
+class TemplateController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $templates = Template::all();
+        return inertia('Templates/Index', ['templates' => $templates]);
     }
 
     /**
@@ -19,7 +21,7 @@ class ExperienceController extends Controller
      */
     public function create()
     {
-        return inertia('Experience/Index');
+        //
     }
 
     /**
@@ -27,15 +29,17 @@ class ExperienceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id)
     {
-        //
+        $template = Template::findOrFail($id);
+        session(['selected_template_id' => $id]);
+        return inertia('Templates/Show', ['template' => $template]);
     }
 
     /**

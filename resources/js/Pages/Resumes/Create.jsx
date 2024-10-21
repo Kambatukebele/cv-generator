@@ -7,7 +7,6 @@ import { Button, Textarea } from "@headlessui/react";
 
 const Create = () => {
     const { data, post, setData, errors } = useForm({});
-    console.log(data);
 
     const handleContactInfoForm = (e) => {
         e.preventDefault();
@@ -20,12 +19,11 @@ const Create = () => {
                 <div className="container mx-auto">
                     <div className="flex flex-col gap-3 my-10 py-5 lg:w-[700px] lg:mx-auto">
                         <h1 className="text-2xl mx-4 text-start font-extrabold text-gray-900 lg:text-center lg:text-5xl">
-                            Fill out all your informations and choose your
-                            template at the end
+                            Resumes
                         </h1>
-                        <p className="text-base font-light text-gray-600 text-wrap text-start mx-4 lg:text-center">
+                        {/* <p className="text-base font-light text-gray-600 text-wrap text-start mx-4 lg:text-center">
                             We suggest including an email and phone number.
-                        </p>
+                        </p> */}
                     </div>
                     <form onSubmit={handleContactInfoForm} className="">
                         <div className="p-4 bg-gray-100 shadow-xl min-w-[190px] rounded-3xl mx-4 lg:w-[768px] lg:mx-auto">

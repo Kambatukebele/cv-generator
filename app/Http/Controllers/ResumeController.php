@@ -30,37 +30,22 @@ class ResumeController extends Controller
      */
     public function store(Request $request)
     {
-        $authUser = Auth::user()->id;
-         $request->validate([
+        //Retrieve tempate_id from session
+        $template_id = session('selected_template_id');
+        $request->validate([
             'title'=> "required|string",
             'summary' => "required|string",
         ]);
-        // $request->validate([
-        //     'first_name'=> "required|string",
-        //     'last_name' => "required|string",
-        //     'email' => "required|email",
-        //     "phone" => "required|numeric",
-        //     "linkedin" => "nullable|url:https",
-        //     "twitter" => "nullable|url:https",
-        //     "github" => "nullable|url:https",
-        //     "website" => "nullable|url:https",
-        // ]);
 
         $resume = new Resume;
         $resume->title = $request->title;
         $resume->summary = $request->summary;
-         $resume->user_id = $authUser;
-        // $resume->first_name = $request->first_name;
-        // $resume->last_name = $request->last_name;
-        // $resume->email = $request->email;
-        // $resume->phone = $request->phone;
-        // $resume->linkedin = $request->linkedin;
-        // $resume->twitter = $request->twitter;
-        // $resume->github = $request->github;
-        // $resume->website = $request->website;
+        $resume->template_id = $template_id;
 
         $resume->save();
-        return redirect(route('contact_info.create'));
+        $request->session()->forget('selected_template_id');
+        session(['resume_id' => $resume->id]);
+        return redirect()->route('contact_info.create');
     }
 
     /**

@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('title')->nullable();
-            $table->string('summary')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('title');
+            $table->string('summary');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('template_id')->nullable()->constrained('templates')->onDelete('set null');
             $table->timestamps();
         });

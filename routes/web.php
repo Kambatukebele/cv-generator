@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\ContactInfoController;
+use App\Http\Controllers\ExperienceController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TemplateController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -20,9 +22,25 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+//Template
+Route::resource('/build_cv/app/templates', TemplateController::class)->only([
+    'index', 'show'
+]);
+
 // Resumes
-Route::resource('resumes', ResumeController::class)->middleware(['auth', 'verified']);
-Route::resource('contact_info', ContactInfoController::class)->middleware(['auth', 'verified']);
+Route::resource('/build_cv/app/templates/resumes', ResumeController::class)->only([
+    'create', 'store'
+]);
+//COntact info
+Route::resource('/build_cv/app/templates/contact_info', ContactInfoController::class)->only([
+    'create', 'store'
+]);
+
+// Employement
+Route::resource('/build_cv/app/templates/experience', ExperienceController::class)->only([
+    'create', 'store'
+]);
 
 
 Route::middleware('auth')->group(function () {
