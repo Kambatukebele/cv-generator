@@ -1,73 +1,45 @@
 import { Link, Head } from "@inertiajs/react";
-import logo from "../../../public/images/logo.svg";
 import { Button } from "@headlessui/react";
+import imageHero from "../../../public/images/imageHero.jpg";
+import Guest from "@/Layouts/GuestLayout";
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
-    // const handleImageError = () => {
-    //     document
-    //         .getElementById("screenshot-container")
-    //         ?.classList.add("!hidden");
-    //     document.getElementById("docs-card")?.classList.add("!row-span-1");
-    //     document
-    //         .getElementById("docs-card-content")
-    //         ?.classList.add("!flex-row");
-    //     document.getElementById("background")?.classList.add("!hidden");
-    // };
-
     return (
         <>
-            <Head title="Welcome" />
-            <main>
-                <header>
-                    <nav>
-                        <div>
-                            <Link>
-                                <img src={logo} alt="" />
-                            </Link>
+            <Head title="ResumeKamba" />
+            <Guest>
+                {/* Hero */}
+                <section className="w-full h-screen bg-gray-50 lg:relative ">
+                    <div className="container mx-auto px-4 py-3 flex flex-col lg:flex-row lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
+                        <div className="w-full lg:w-1/2">
+                            <h1 className="text-3xl font-bold mb-3 text-gray-900 lg:text-5xl lg:w-[30rem]">
+                                Only 2% of resumes make it past the first round.
+                                Be in the top 2%
+                            </h1>
+                            <p className="text-base font-normal mb-5 text-gray-700 lg:w-[30rem]">
+                                Use professional field-tested resume templates
+                                that follow the exact ‘resume rules’ employers
+                                look for. Easy to use and done within minutes -
+                                try now for free!
+                            </p>
+                            <Button
+                                className={`text-white bg-blue-800 py-3 px-4 rounded-lg hover:to-orange-600`}
+                            >
+                                <Link href={route("templates.index")}>
+                                    Build my resume
+                                </Link>
+                            </Button>
                         </div>
-                        <ul>
-                            <li>
-                                <Link>Resume</Link>
-                            </li>
-                            <li>
-                                <Link>Conver Letter</Link>
-                            </li>
-                            <li>
-                                <Link>Blog</Link>
-                            </li>
-                            <li>
-                                <Link>FAQ</Link>
-                            </li>
-                            <li>
-                                <Link>My Account</Link>
-                            </li>
-                            <li>
-                                <Button>
-                                    <Link href={route("templates.index")}>
-                                        Build my resume
-                                    </Link>
-                                </Button>
-                            </li>
-                        </ul>
-                    </nav>
-                    {/* <nav className="">
-                        {auth.user ? (
-                            <Link href={route("dashboard")} className="">
-                                Dashboard
-                            </Link>
-                        ) : (
-                            <>
-                                <Link href={route("login")} className="">
-                                    Log in
-                                </Link>
-                                <Link href={route("register")} className="">
-                                    Register
-                                </Link>
-                            </>
-                        )}
-                    </nav> */}
-                </header>
-            </main>
+                        <div className="w-full lg:w-1/2">
+                            <img
+                                className="rounded-lg"
+                                src={imageHero}
+                                alt=""
+                            />
+                        </div>
+                    </div>
+                </section>
+            </Guest>
         </>
     );
 }

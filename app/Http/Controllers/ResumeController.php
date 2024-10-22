@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Resume;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ResumeController extends Controller
 {
@@ -54,18 +55,11 @@ class ResumeController extends Controller
      */
     public function show(Resume $resume)
     {
-        // Fetch resume along with related data
-        // $resume = Resume::with([
-        //     'experiences',
-        //     'educations',
-        //     'skills',
-        //     'projects',
-        //     'languages'
-        // ])->findOrFail($resume);
-        // // Return the data to the Inertia view
-        // return inertia('Resume/Show', [
-        //     'resume' => $resume
-        // ]);
+         // Fetch a single resume with its related data
+        $resume = Resume::with(['experiences', 'educations', 'skills', 'projects', 'languages', 'contact_info'])
+            ->findOrFail($resume->id);
+
+        return inertia('Resumes/Show', ['resume' => $resume]);
     }
 
     /**
@@ -99,5 +93,12 @@ class ResumeController extends Controller
         // $this->authorize('delete', $resume);
         // $resume->delete();
         // return redirect()->route('resumes.index');
+    }
+    public function downloadPDF($id)
+    {
+        $resume = Resume::with('experiences', 'educations', 'skills', 'projects', 'languages', 'contact_info')->findOrFail($id);
+        $pdf = Pdf::loadView('pdf.resume', compact('resume'));
+        // Download the PDF or stream it
+         return $pdf->stream('resume.pdf');
     }
 }

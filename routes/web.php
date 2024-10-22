@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\TemplateController;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -71,6 +72,9 @@ Route::resource('/build_cv/app/templates/project',ProjectController::class)->onl
 Route::resource('/build_cv/app/templates/language', LanguageController::class)->only([
     'create', 'store'
 ]);
+
+//pdf route
+Route::get('/resume/{id}/pdf', [ResumeController::class, 'downloadPDF'])->name('resume.pdf');
 
 
 Route::middleware('auth')->group(function () {

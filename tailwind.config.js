@@ -11,6 +11,9 @@ export default {
     ],
 
     theme: {
+        container: {
+            center: true,
+        },
         extend: {
             fontFamily: {
                 poppins: ["Poppins", "sans-serif"],

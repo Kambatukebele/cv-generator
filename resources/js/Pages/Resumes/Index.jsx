@@ -6,13 +6,22 @@ const Index = ({ resumes }) => {
 
     return (
         <>
-            <h1 className="mb-10">List of your resumes</h1>
-            <Link
-                href="/resumes/create"
-                className="bg-orange-700 text-white py-2 px-4 rounded-lg"
-            >
-                Create new resume
-            </Link>
+            <h1 className="mb-10 text-3xl">List of your resumes</h1>
+            {resumes.map((resume) => {
+                const { id, title, summary } = resume;
+                return (
+                    <div key={id} className="border my-10">
+                        <div>{title}</div>
+                        <div>{summary}</div>
+                        <Link
+                            href={route("resumes.show", id)}
+                            className="bg-orange-700 text-white block w-[12.5rem] text-center my-10 py-2 px-4 rounded-lg"
+                        >
+                            View you cv
+                        </Link>
+                    </div>
+                );
+            })}
         </>
     );
 };
