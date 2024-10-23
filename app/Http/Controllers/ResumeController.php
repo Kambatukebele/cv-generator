@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Resume;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 
 class ResumeController extends Controller
 {
@@ -90,14 +90,13 @@ class ResumeController extends Controller
      */
     public function destroy(Resume $resume)
     {
-        // $this->authorize('delete', $resume);
-        // $resume->delete();
-        // return redirect()->route('resumes.index');
+        //
     }
     public function downloadPDF($id)
     {
         $resume = Resume::with('experiences', 'educations', 'skills', 'projects', 'languages', 'contact_info')->findOrFail($id);
         $pdf = Pdf::loadView('pdf.resume', compact('resume'));
+
         // Download the PDF or stream it
          return $pdf->stream('resume.pdf');
     }

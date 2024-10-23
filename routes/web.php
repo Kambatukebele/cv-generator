@@ -74,6 +74,7 @@ Route::resource('/build_cv/app/templates/language', LanguageController::class)->
 ]);
 
 //pdf route
+
 Route::get('/resume/{id}/pdf', [ResumeController::class, 'downloadPDF'])->name('resume.pdf');
 
 

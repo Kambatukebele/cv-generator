@@ -123,4 +123,22 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+//    'providers' => [
+//         // Other providers...
+//         Illuminate\Filesystem\FilesystemServiceProvider::class,
+//         Illuminate\Cache\CacheServiceProvider::class,
+//         // Barryvdh\DomPDF\ServiceProvider::class, // DomPDF
+//         // Barryvdh\Snappy\ServiceProvider::class, // SnappyPDF
+//     ],
+
+
+
+
+    // 'aliases' => [
+    //     // Other aliases...
+    //     // 'SnappyPdf' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+    //     // 'DomPDF' => Barryvdh\DomPDF\Facade::class, // Correct alias for DomPDF
+    // ],
+
+
 ];
