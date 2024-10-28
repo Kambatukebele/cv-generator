@@ -64,7 +64,7 @@
 
     <div style="width: 109mm; float: left;">
         <div style="margin-bottom: 10px;">
-            <h1 style="font-size: 32px; font-weight: bold;">{{$resume->contact_info[0]->first_name}} <span style="color: #5b21b6;">{{$resume->contact_info[0]->last_name}}</span></h1>
+            <h1 style="font-size: 32px; font-weight: bold; text-transform:uppercase">{{$resume->contact_info[0]->first_name}} <span style="color: #5b21b6;">{{$resume->contact_info[0]->last_name}}</span></h1>
             <h4 style="font-size: 18px; color: #1f2937; font-weight: 600;">{{$resume->title}}</h4>
         </div>
         <div style="margin-bottom: 10px;">
